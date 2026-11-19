@@ -4,6 +4,7 @@ vendor/
 # Local config (commit only the .example files)
 config/app.php
 config/app.local.php
+tools/analyze_code_config.bat
 
 # Tool caches and logs
 .phpunit.cache/
