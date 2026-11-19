@@ -1,0 +1,13 @@
+/.claude/
+/.git/
+/config/
+/contract/
+/data/
+/graphify-out/
+/lang/
+/public/
+/templates/
+/tests/
+/tickets/
+/tools/
+/vendor/
