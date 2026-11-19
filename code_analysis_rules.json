@@ -1,0 +1,53 @@
+{
+  "log_level": "all",
+  "fail_on": "warning",
+  "max_lines_per_file": {
+    "enabled": true,
+    "warning": 300,
+    "error": 500,
+    "exclude_patterns": [
+      ".git/**",
+      "vendor/**",
+      "node_modules/**",
+      "dist/**",
+      "build/**",
+      "coverage/**",
+      "code_analysis_results/**"
+    ]
+  },
+  "pmd_duplicates": {
+    "enabled": true,
+    "minimum_tokens": 100,
+    "exclude_patterns": {
+      "php": [".git/**", "vendor/**", "node_modules/**", "dist/**", "build/**", "coverage/**"]
+    }
+  },
+  "pmd_similar_code": {
+    "enabled": false,
+    "minimum_tokens": 100,
+    "ignore_identifiers": true,
+    "ignore_literals": true,
+    "ignore_annotations": false,
+    "exclude_patterns": {
+      "php": [".git/**", "vendor/**", "node_modules/**", "dist/**", "build/**", "coverage/**"]
+    }
+  },
+  "phpstan_analyze": {
+    "enabled": true,
+    "level": 5,
+    "bootstrap_files": ["vendor/autoload.php"],
+    "exclude_patterns": [".git/**", "vendor/**", "node_modules/**", "dist/**", "build/**", "coverage/**"]
+  },
+  "php_cs_fixer": {
+    "enabled": true,
+    "rules": "@PSR12",
+    "exclude_paths": ["vendor", "node_modules", ".git", "dist", "build", "coverage"]
+  },
+  "intelephense_analyze": {
+    "enabled": true,
+    "min_severity": "warning",
+    "timeout": 5,
+    "exclude_patterns": [".git/**", "vendor/**", "node_modules/**", "dist/**", "build/**", "coverage/**"],
+    "ignore_unused_underscore": true
+  }
+}
