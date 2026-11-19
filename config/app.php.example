@@ -8,8 +8,6 @@ return [
     // Default assumes both projects are checked out side by side.
     'db_path' => __DIR__ . '/../../remember-the-milk-statistics/data/statistics.sqlite',
     'page_size' => 25,
-    // Number of most recent snapshots drawn in the chart
-    'chart_points' => 100,
     // debug, info, warning, error
     'log_level' => 'warning',
     // Display timezone for snapshot times (stored in UTC)

@@ -18,7 +18,6 @@ final readonly class AppConfig
     public function __construct(
         public string $dbPath,
         public int $pageSize,
-        public int $chartPoints,
         public string $logLevel,
         public string $timezone,
         public bool $debug,
@@ -34,31 +33,30 @@ final readonly class AppConfig
 
         $dbPath = $values['db_path'] ?? null;
         $pageSize = $values['page_size'] ?? null;
-        $chartPoints = $values['chart_points'] ?? null;
         $logLevel = $values['log_level'] ?? null;
         $timezone = $values['timezone'] ?? null;
         $debug = $values['debug'] ?? false;
 
-        if (!is_string($dbPath) || $dbPath === '') {
-            throw new ConfigException('db_path must be a non-empty string');
-        }
-        if (!is_int($pageSize) || $pageSize < 1) {
-            throw new ConfigException('page_size must be an integer >= 1');
-        }
-        if (!is_int($chartPoints) || $chartPoints < 2) {
-            throw new ConfigException('chart_points must be an integer >= 2');
-        }
-        if (!is_string($logLevel) || !Logger::isLevel($logLevel)) {
-            throw new ConfigException('log_level must be one of: ' . implode(', ', Logger::LEVELS));
-        }
-        if (!is_string($timezone) || !in_array($timezone, timezone_identifiers_list(), true)) {
-            throw new ConfigException('timezone must be a PHP timezone identifier, e.g. Europe/Berlin');
-        }
-        if (!is_bool($debug)) {
-            throw new ConfigException('debug must be true or false');
-        }
+        self::ensure(is_string($dbPath) && $dbPath !== '', 'db_path must be a non-empty string');
+        self::ensure(is_int($pageSize) && $pageSize >= 1, 'page_size must be an integer >= 1');
+        self::ensure(
+            is_string($logLevel) && Logger::isLevel($logLevel),
+            'log_level must be one of: ' . implode(', ', Logger::LEVELS),
+        );
+        self::ensure(
+            is_string($timezone) && in_array($timezone, timezone_identifiers_list(), true),
+            'timezone must be a PHP timezone identifier, e.g. Europe/Berlin',
+        );
+        self::ensure(is_bool($debug), 'debug must be true or false');
 
-        return new self($dbPath, $pageSize, $chartPoints, $logLevel, $timezone, $debug);
+        return new self($dbPath, $pageSize, $logLevel, $timezone, $debug);
+    }
+
+    private static function ensure(bool $valid, string $message): void
+    {
+        if (!$valid) {
+            throw new ConfigException($message);
+        }
     }
 
     /** @return array<string, mixed> */

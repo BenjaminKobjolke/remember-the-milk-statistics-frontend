@@ -10,7 +10,11 @@
     },
     "chart": {
         "title": "Open tasks over time",
-        "label": "Line chart of open tasks over the last :count snapshots"
+        "label": "Line chart of open tasks over :count snapshots on :date",
+        "nav_label": "Chart day",
+        "previous_day": "Previous day",
+        "next_day": "Next day",
+        "empty": "No snapshots on this day."
     },
     "table": {
         "title": "Snapshots",

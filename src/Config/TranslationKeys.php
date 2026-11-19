@@ -16,6 +16,10 @@ final class TranslationKeys
 
     public const CHART_TITLE = 'chart.title';
     public const CHART_LABEL = 'chart.label';
+    public const CHART_NAV_LABEL = 'chart.nav_label';
+    public const CHART_PREVIOUS_DAY = 'chart.previous_day';
+    public const CHART_NEXT_DAY = 'chart.next_day';
+    public const CHART_EMPTY = 'chart.empty';
 
     public const TABLE_TITLE = 'table.title';
     public const TABLE_TAKEN_AT = 'table.taken_at';

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use DateTimeImmutable;
+use DateTimeZone;
 use PDO;
 use Pdo\Sqlite;
 
@@ -24,6 +25,7 @@ final class SnapshotRepository
         'open_count' => 'INTEGER',
         'completed_count' => 'INTEGER',
     ];
+    private const BOUND_FORMAT = 'Y-m-d\TH:i:s';
 
     public function __construct(private readonly PDO $pdo)
     {
@@ -51,14 +53,25 @@ final class SnapshotRepository
         return $this->select('ORDER BY id DESC LIMIT ? OFFSET ?', [$size, ($page - 1) * $size]);
     }
 
-    /** @return list<Snapshot> the last $limit snapshots, oldest first (chart order) */
-    public function recent(int $limit): array
+    /**
+     * Snapshots taken in [$from, $to), oldest first (chart order).
+     * taken_at is an isoformat() UTC string, so text order is time order; a bound without offset
+     * sorts before every stored value of the same second, which keeps the range half-open.
+     *
+     * @return list<Snapshot>
+     */
+    public function between(DateTimeImmutable $from, DateTimeImmutable $to): array
     {
-        return array_reverse($this->select('ORDER BY id DESC LIMIT ?', [$limit]));
+        $utc = new DateTimeZone('UTC');
+
+        return $this->select('WHERE taken_at >= ? AND taken_at < ? ORDER BY taken_at', [
+            $from->setTimezone($utc)->format(self::BOUND_FORMAT),
+            $to->setTimezone($utc)->format(self::BOUND_FORMAT),
+        ]);
     }
 
     /**
-     * @param list<int> $params
+     * @param list<int|string> $params
      * @return list<Snapshot>
      */
     private function select(string $suffix, array $params = []): array
@@ -67,7 +80,7 @@ final class SnapshotRepository
             sprintf('SELECT %s FROM %s %s', implode(', ', array_keys(self::COLUMNS)), self::TABLE, $suffix)
         );
         foreach ($params as $index => $value) {
-            $statement->bindValue($index + 1, $value, PDO::PARAM_INT);
+            $statement->bindValue($index + 1, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
         }
         $statement->execute();
 

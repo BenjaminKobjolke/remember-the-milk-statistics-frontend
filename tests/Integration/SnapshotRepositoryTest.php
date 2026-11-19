@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tests\Integration;
 
 use App\SnapshotRepository;
+use DateTimeImmutable;
+use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 use Tests\Support\ContractSchema;
 
@@ -45,9 +47,19 @@ final class SnapshotRepositoryTest extends TestCase
         $this->assertSame([12], array_map(fn ($s) => $s->openCount, $second));
     }
 
-    public function testRecentIsOldestFirstForChart(): void
+    public function testBetweenIsOldestFirstAndHalfOpen(): void
     {
-        $this->assertSame([10, 7], array_map(fn ($s) => $s->openCount, $this->repository->recent(2)));
+        $pdo = ContractSchema::createDatabase($this);
+        ContractSchema::insert($pdo, '2026-11-19T00:59:59.999999+00:00', 'Today', 1, 0);
+        ContractSchema::insert($pdo, '2026-11-19T01:30:00.123456+00:00', 'Today', 3, 0);
+        ContractSchema::insert($pdo, '2026-11-19T01:00:00+00:00', 'Today', 2, 0);
+        ContractSchema::insert($pdo, '2026-11-19T02:00:00+00:00', 'Today', 4, 0);
+        // bounds in local time: 02:00..03:00 Berlin = 01:00..02:00 UTC
+        $from = new DateTimeImmutable('2026-11-19 02:00:00', new DateTimeZone('Europe/Berlin'));
+
+        $rows = (new SnapshotRepository($pdo))->between($from, $from->modify('+1 hour'));
+
+        $this->assertSame([2, 3], array_map(fn ($s) => $s->openCount, $rows));
     }
 
     public function testEmptyTable(): void

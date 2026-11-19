@@ -39,7 +39,10 @@ try {
         $logger->warning('Statistics database not found', ['db_path' => $config->dbPath]);
     }
     $page = new StatisticsPage($repository, $config, $twig);
-    echo $page->render(StatisticsPage::pageFromQuery($_GET['page'] ?? null));
+    echo $page->render(
+        StatisticsPage::pageFromQuery($_GET['page'] ?? null),
+        StatisticsPage::dayFromQuery($_GET['day'] ?? null, new DateTimeZone($config->timezone)),
+    );
 } catch (Throwable $e) {
     $logger->error('Rendering the statistics page failed', ['exception' => $e]);
     http_response_code(500);

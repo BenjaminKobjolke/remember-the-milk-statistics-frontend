@@ -36,7 +36,6 @@ final class AppConfigTest extends TestCase
         return [
             'db_path' => 'x.sqlite',
             'page_size' => 20,
-            'chart_points' => 50,
             'log_level' => 'warning',
             'timezone' => 'Europe/Berlin',
             'debug' => false,
