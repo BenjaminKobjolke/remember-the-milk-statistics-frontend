@@ -50,3 +50,19 @@ they are intentionally referenced, not imported.
   SQLite database from the contract, so `tools/tests.bat` does not pull a database.
 - **php-localization placeholders**: the library replaces placeholders one after another with
   `str_ireplace`, so one placeholder must never be a prefix of another (`:page` vs `:pages`).
+
+## Code Analysis
+
+Run the changed-files analyzer after implementing a feature, finishing a plan, or fixing a bug:
+
+```powershell
+cmd /c '.\tools\analyze_changed_and_new_files.bat'
+```
+
+It checks changed and new files against the configured PHP rules and fails on warnings or errors.
+Fix findings in changed files before considering the work complete. The full analyzer is available
+for whole-project audits:
+
+```powershell
+cmd /c '.\tools\analyze_code.bat'
+```
