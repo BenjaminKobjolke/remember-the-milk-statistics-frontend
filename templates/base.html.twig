@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ t(TK.PAGE_TITLE) }}</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<main class="page">
+    <header class="page-header">
+        <h1 class="heading">{{ t(TK.PAGE_TITLE) }}</h1>
+        <p class="subheading">{{ t(TK.PAGE_SUBTITLE) }}</p>
+    </header>
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<?php
+
+declare(strict_types=1);
+
+// Local developer override. Copy to config/app.local.php (gitignored, never deployed).
+// Keys here replace the same keys from config/app.php.
+return [
+    'debug' => true,
+    'log_level' => 'debug',
+];

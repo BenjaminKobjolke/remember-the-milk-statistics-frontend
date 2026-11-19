@@ -1,0 +1,200 @@
+/* Design tokens: every color, size and space below is defined once here. */
+:root {
+    --color-bg: #f7f7f8;
+    --color-surface: #ffffff;
+    --color-border: #d9d9de;
+    --color-text: #1c1c21;
+    --color-text-muted: #5c5c66;
+    --color-accent: #2563eb;
+
+    --font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-size-body: 1rem;
+    --font-size-small: 0.875rem;
+    --font-size-heading: 1.75rem;
+    --font-size-section: 1.125rem;
+    --font-size-stat: 2.25rem;
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+
+    --radius: 8px;
+    --page-width: 960px;
+    --chart-height: 160px;
+    --focus-width: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg: #141417;
+        --color-surface: #1d1d22;
+        --color-border: #34343c;
+        --color-text: #ececf1;
+        --color-text-muted: #a3a3ad;
+        --color-accent: #6b9bff;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: var(--font-size-body);
+    line-height: 1.5;
+}
+
+.page {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+}
+
+.page-header {
+    margin-bottom: var(--space-8);
+}
+
+.heading {
+    margin: 0;
+    font-size: var(--font-size-heading);
+    font-weight: 700;
+}
+
+.subheading,
+.muted {
+    margin: var(--space-1) 0 0;
+    color: var(--color-text-muted);
+}
+
+.summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+    margin-bottom: var(--space-8);
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+}
+
+.stat-value {
+    font-size: var(--font-size-stat);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-meta {
+    margin-top: var(--space-3);
+}
+
+.section {
+    margin-bottom: var(--space-8);
+}
+
+.section-title {
+    margin: 0 0 var(--space-3);
+    font-size: var(--font-size-section);
+    font-weight: 600;
+}
+
+.chart {
+    display: block;
+    width: 100%;
+    height: var(--chart-height);
+}
+
+.chart-baseline {
+    stroke: var(--color-border);
+    stroke-width: 1;
+}
+
+.chart-line {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.table-scroll {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-surface);
+    border-radius: var(--radius);
+}
+
+.table th,
+.table td {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+}
+
+.table th {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+}
+
+.table .num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.pager {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+}
+
+.pager-link {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.pager-link:hover {
+    text-decoration: underline;
+}
+
+.pager-link:focus-visible {
+    outline: var(--focus-width) solid var(--color-accent);
+    outline-offset: var(--space-1);
+    border-radius: var(--space-1);
+}
+
+.empty {
+    padding: var(--space-8) 0;
+}
+
+.empty-title {
+    margin: 0;
+    font-size: var(--font-size-section);
+    font-weight: 600;
+}
+
+.error-detail {
+    margin-top: var(--space-4);
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: var(--color-text-muted);
+}

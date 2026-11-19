@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% if latest is null %}
+        <section class="empty">
+            <p class="empty-title">{{ t(has_database ? TK.EMPTY_NO_ROWS : TK.EMPTY_NO_DATABASE) }}</p>
+            <p class="muted">{{ t(TK.EMPTY_HINT) }}</p>
+        </section>
+    {% else %}
+        <section class="summary">
+            <div class="stat">
+                <span class="stat-label">{{ t(TK.SUMMARY_OPEN) }}</span>
+                <span class="stat-value">{{ latest.openCount }}</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">{{ t(TK.SUMMARY_COMPLETED) }}</span>
+                <span class="stat-value">{{ latest.completedCount }}</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">{{ t(TK.SUMMARY_TAKEN_AT) }}</span>
+                <span class="stat-meta">{{ latest.takenAt|date('Y-m-d H:i') }} · {{ latest.listName }}</span>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">{{ t(TK.CHART_TITLE) }}</h2>
+            <svg class="chart" viewBox="0 0 {{ chart_width }} {{ chart_height }}" preserveAspectRatio="none"
+                 role="img" aria-label="{{ t(TK.CHART_LABEL, {':count': chart_count}) }}">
+                <line class="chart-baseline" x1="0" y1="{{ chart_height - 1 }}" x2="{{ chart_width }}" y2="{{ chart_height - 1 }}"/>
+                <polyline class="chart-line" points="{{ chart_points }}"/>
+            </svg>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">{{ t(TK.TABLE_TITLE) }}</h2>
+            <div class="table-scroll">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{ t(TK.TABLE_TAKEN_AT) }}</th>
+                        <th scope="col">{{ t(TK.TABLE_LIST) }}</th>
+                        <th scope="col" class="num">{{ t(TK.TABLE_OPEN) }}</th>
+                        <th scope="col" class="num">{{ t(TK.TABLE_COMPLETED) }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in rows %}
+                        <tr>
+                            <td>{{ row.takenAt|date('Y-m-d H:i') }}</td>
+                            <td>{{ row.listName }}</td>
+                            <td class="num">{{ row.openCount }}</td>
+                            <td class="num">{{ row.completedCount }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <nav class="pager" aria-label="{{ t(TK.PAGER_LABEL) }}">
+                {% if page > 1 %}
+                    <a class="pager-link" href="?page={{ page - 1 }}">{{ t(TK.PAGER_PREVIOUS) }}</a>
+                {% endif %}
+                <span class="muted">{{ t(TK.PAGER_POSITION, {':page': page, ':total': page_count}) }}</span>
+                {% if page < page_count %}
+                    <a class="pager-link" href="?page={{ page + 1 }}">{{ t(TK.PAGER_NEXT) }}</a>
+                {% endif %}
+            </nav>
+        </section>
+    {% endif %}
+{% endblock %}

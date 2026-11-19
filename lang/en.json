@@ -1,0 +1,37 @@
+{
+    "page": {
+        "title": "RTM Statistics",
+        "subtitle": "Open and completed tasks of a Remember The Milk smart list"
+    },
+    "summary": {
+        "open": "Open",
+        "completed": "Completed today",
+        "taken_at": "Last snapshot"
+    },
+    "chart": {
+        "title": "Open tasks over time",
+        "label": "Line chart of open tasks over the last :count snapshots"
+    },
+    "table": {
+        "title": "Snapshots",
+        "taken_at": "Taken at",
+        "list": "List",
+        "open": "Open",
+        "completed": "Completed today"
+    },
+    "pager": {
+        "label": "Snapshot pages",
+        "previous": "Newer",
+        "next": "Older",
+        "position": "Page :page of :total"
+    },
+    "empty": {
+        "no_database": "No statistics database found yet.",
+        "no_rows": "No snapshots recorded yet.",
+        "hint": "Run start.bat in remember-the-milk-statistics to take the first snapshot."
+    },
+    "error": {
+        "title": "Something went wrong",
+        "text": "The statistics could not be loaded. The details are in the server log."
+    }
+}

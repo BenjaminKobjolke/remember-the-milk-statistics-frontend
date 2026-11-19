@@ -1,0 +1,35 @@
+# Composer
+vendor/
+
+# Local config (commit only the .example files)
+config/app.php
+config/app.local.php
+
+# Tool caches and logs
+.phpunit.cache/
+.php-cs-fixer.cache
+tools/_last_test_run.log
+*.log
+
+# Machine-specific coding-rules state
+coding-rules.json
+
+# graphify build output
+graphify-out/
+src/graphify-out/
+
+# Claude Code local settings and plans
+.claude/
+claude-plans/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local runtime data and caches
+data/
+.phpunit.result.cache
+tmp/
+PLAN_*.md

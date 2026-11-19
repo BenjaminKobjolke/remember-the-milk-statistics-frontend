@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <section class="empty">
+        <p class="empty-title">{{ t(TK.ERROR_TITLE) }}</p>
+        <p class="muted">{{ t(TK.ERROR_TEXT) }}</p>
+        {% if detail %}
+            <pre class="error-detail">{{ detail }}</pre>
+        {% endif %}
+    </section>
+{% endblock %}

@@ -1,0 +1,19 @@
+<?php
+
+declare(strict_types=1);
+
+// Copy to config/app.php and adjust. config/app.php is gitignored.
+return [
+    // SQLite file written by remember-the-milk-statistics (its [output] database setting).
+    // Default assumes both projects are checked out side by side.
+    'db_path' => __DIR__ . '/../../remember-the-milk-statistics/data/statistics.sqlite',
+    'page_size' => 25,
+    // Number of most recent snapshots drawn in the chart
+    'chart_points' => 100,
+    // debug, info, warning, error
+    'log_level' => 'warning',
+    // Display timezone for snapshot times (stored in UTC)
+    'timezone' => 'Europe/Berlin',
+    // Never true here; turn it on only in the gitignored config/app.local.php
+    'debug' => false,
+];
