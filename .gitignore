@@ -33,3 +33,9 @@ data/
 .phpunit.result.cache
 tmp/
 PLAN_*.md
+tickets/
+HANDOFF.md
+PLAN.md
+tmp/commit_msg.tmp
+code_analysis_results/
+.reasonix/
