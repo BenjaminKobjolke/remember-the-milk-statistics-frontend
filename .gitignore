@@ -30,6 +30,8 @@ claude-plans/
 Thumbs.db
 
 # Local runtime data and caches
+tools/create_media/output/
+tools/create_media/*.local.json
 data/
 .phpunit.result.cache
 tmp/
