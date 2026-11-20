@@ -19,7 +19,8 @@ $baseDir = dirname(__DIR__);
 $logger = new Logger(Logger::ERROR);
 
 try {
-    $config = AppConfig::load($baseDir . '/config');
+    $configDir = getenv(AppConfig::CONFIG_DIR_ENV) ?: $baseDir . '/config';
+    $config = AppConfig::load($configDir);
     $logger = new Logger($config->logLevel);
     $twig = TwigFactory::create($baseDir, $config);
 } catch (Throwable $e) {

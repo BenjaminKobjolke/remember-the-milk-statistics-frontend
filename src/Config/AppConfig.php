@@ -14,6 +14,7 @@ final readonly class AppConfig
 {
     public const FILE = 'app.php';
     public const LOCAL_FILE = 'app.local.php';
+    public const CONFIG_DIR_ENV = 'RTM_STATS_CONFIG_DIR';
 
     public function __construct(
         public string $dbPath,
