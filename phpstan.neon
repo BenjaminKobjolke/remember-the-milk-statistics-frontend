@@ -4,3 +4,4 @@ parameters:
         - src
         - public
         - tests
+        - tools/mobile_ui_driver

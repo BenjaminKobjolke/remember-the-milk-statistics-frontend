@@ -9,6 +9,7 @@
     "analyze_code_config.example.bat",
     "fix_php_issues.bat",
     "graphify_update.bat",
+    "mobile_ui_driver.bat",
     "run_integration_tests.bat",
     "run_tests.bat",
     "tests.bat"
@@ -39,6 +40,10 @@
   "analysis_tests_answered": true,
   "analysis_code_quality_answered": true,
   "project_id": 12406,
+  "mobile_ui_driver": {
+    "command": "tools/mobile_ui_driver.bat",
+    "doc": "docs/MOBILE_UI_DRIVER.md"
+  },
   "analysis_command_states": {
     "tools/fix_php_issues.bat": {
       "code_quality": "green"
