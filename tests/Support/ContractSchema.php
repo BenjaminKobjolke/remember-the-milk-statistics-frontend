@@ -6,6 +6,7 @@ namespace Tests\Support;
 
 use PDO;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 /**
  * Reads contract/schema.json (git submodule) so tests check the frontend against the
@@ -30,11 +31,24 @@ final class ContractSchema
     /** Creates the snapshots table exactly as the contract describes it. */
     public static function createDatabase(TestCase $test, string $dsn = 'sqlite::memory:'): PDO
     {
+        self::columnsOrSkip($test);
+
+        return self::createDatabaseFromContract($dsn);
+    }
+
+    /** Creates the contract table without requiring PHPUnit, for the local mobile driver fixtures. */
+    public static function createDatabaseFromContract(string $dsn): PDO
+    {
+        if (!is_file(self::FILE)) {
+            throw new RuntimeException('contract/schema.json is missing; check out the contract submodule.');
+        }
+
         $definitions = [];
-        foreach (self::columnsOrSkip($test) as $name => $type) {
+        foreach (self::readColumns() as $name => $type) {
             $definitions[] = $name === 'id' ? "$name $type PRIMARY KEY" : "$name $type";
         }
         $pdo = new PDO($dsn);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $pdo->exec(sprintf('CREATE TABLE %s (%s)', self::TABLE, implode(', ', $definitions)));
 
         return $pdo;
@@ -46,5 +60,13 @@ final class ContractSchema
             'INSERT INTO %s (taken_at, list_name, open_count, completed_count) VALUES (?, ?, ?, ?)',
             self::TABLE,
         ))->execute([$takenAt, $listName, $open, $completed]);
+    }
+
+    /** @return array<string, string> */
+    private static function readColumns(): array
+    {
+        $schema = json_decode((string) file_get_contents(self::FILE), true, flags: JSON_THROW_ON_ERROR);
+
+        return $schema[self::TABLE]['columns'];
     }
 }
