@@ -62,6 +62,20 @@ vendor\bin\phpstan analyse
 vendor\bin\php-cs-fixer fix --dry-run --diff
 ```
 
+## Screenshots
+
+`tools/create_media/rtm-statistics.json` is the config for the
+automated-application-screenshots tool. It captures the statistics page from the local WAMP URL
+(`http://localhost/remember-the-milk-statistics-frontend`); change `web.base_url` if the page is
+served elsewhere (for example `start.bat` on `http://localhost:8080`).
+
+```bash
+uv run --project <screenshot-tool> screenshot-tool --config tools/create_media/rtm-statistics.json --full-page
+uv run --project <screenshot-tool> screenshot-tool --config tools/create_media/rtm-statistics.json --device mobile --full-page
+```
+
+Images land in `tools/create_media/output/pages/` and `tools/create_media/output/pages/mobile/`.
+
 ## Layout
 
 | Path | Purpose |
