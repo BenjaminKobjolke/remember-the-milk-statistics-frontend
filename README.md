@@ -62,6 +62,11 @@ vendor\bin\phpstan analyse
 vendor\bin\php-cs-fixer fix --dry-run --diff
 ```
 
+## Mobile UI checks
+
+Use the [mobile UI driver](docs/MOBILE_UI_DRIVER.md) to open the page in an isolated Android
+emulator with sample statistics data and save phone screenshots.
+
 ## Screenshots
 
 `tools/create_media/rtm-statistics.json` is the config for the
