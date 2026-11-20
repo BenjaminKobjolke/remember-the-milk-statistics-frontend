@@ -1,15 +1,13 @@
 {
     "page": {
-        "title": "RTM Statistics",
-        "subtitle": "Open and completed tasks of a Remember The Milk smart list"
+        "title": "RTM Statistics"
     },
     "summary": {
         "open": "Open",
         "completed": "Completed today",
-        "taken_at": "Last snapshot"
+        "taken_at": "Last snapshot: :taken_at · :list"
     },
     "chart": {
-        "title": "Open tasks over time",
         "label": "Line chart of open tasks over :count snapshots on :date",
         "nav_label": "Chart day",
         "previous_day": "Previous day",

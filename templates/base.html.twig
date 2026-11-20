@@ -8,10 +8,7 @@
 </head>
 <body>
 <main class="page">
-    <header class="page-header">
-        <h1 class="heading">{{ t(TK.PAGE_TITLE) }}</h1>
-        <p class="subheading">{{ t(TK.PAGE_SUBTITLE) }}</p>
-    </header>
+    <h1 class="visually-hidden">{{ t(TK.PAGE_TITLE) }}</h1>
     {% block content %}{% endblock %}
 </main>
 </body>

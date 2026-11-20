@@ -68,6 +68,26 @@ final class StatisticsPageRenderTest extends TestCase
         $this->assertStringContainsString('2026-11-19 04:00', $html);
     }
 
+    public function testCompactLayoutPutsChartFirstAndSnapshotBelow(): void
+    {
+        $html = $this->renderDay('2026-11-19');
+
+        $this->assertStringNotContainsString('Open and completed tasks of a Remember The Milk smart list', $html);
+        $this->assertStringNotContainsString('Open tasks over time', $html);
+        $this->assertStringContainsString('class="visually-hidden"', $html);
+        $this->assertStringContainsString('Last snapshot: 2026-11-19 04:00 · Today', $html);
+
+        $completedPosition = strpos($html, 'Completed today');
+        $chartPosition = strpos($html, 'class="chart-line"');
+        $snapshotPosition = strpos($html, 'Last snapshot:');
+
+        $this->assertNotFalse($completedPosition);
+        $this->assertNotFalse($chartPosition);
+        $this->assertNotFalse($snapshotPosition);
+        $this->assertLessThan($chartPosition, $completedPosition);
+        $this->assertLessThan($snapshotPosition, $chartPosition);
+    }
+
     public function testChartShowsHoursAndDayNavigation(): void
     {
         // a past day, so the next-day link exists no matter when the test runs

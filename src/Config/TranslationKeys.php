@@ -8,13 +8,11 @@ namespace App\Config;
 final class TranslationKeys
 {
     public const PAGE_TITLE = 'page.title';
-    public const PAGE_SUBTITLE = 'page.subtitle';
 
     public const SUMMARY_OPEN = 'summary.open';
     public const SUMMARY_COMPLETED = 'summary.completed';
     public const SUMMARY_TAKEN_AT = 'summary.taken_at';
 
-    public const CHART_TITLE = 'chart.title';
     public const CHART_LABEL = 'chart.label';
     public const CHART_NAV_LABEL = 'chart.nav_label';
     public const CHART_PREVIOUS_DAY = 'chart.previous_day';
