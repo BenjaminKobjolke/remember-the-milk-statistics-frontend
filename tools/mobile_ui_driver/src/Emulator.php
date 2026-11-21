@@ -11,6 +11,8 @@ final class Emulator
 {
     private const DEFAULT_AVD = 'Pixel_9_Isolated';
     private const DEFAULT_ADB_BINARY = 'adb';
+    private const CHROME_PACKAGE = 'com.android.chrome';
+    private const NOTIFICATION_PERMISSION = 'android.permission.POST_NOTIFICATIONS';
     private const FIRST_CONSOLE_PORT = 5580;
     private const BOOT_TIMEOUT_SECONDS = 180;
     private const CHROME_FLAGS = '_ --disable-fre --no-default-browser-check --no-first-run';
@@ -158,7 +160,7 @@ final class Emulator
     private function prepareChrome(string $serial): void
     {
         $this->assertSuccessful(
-            $this->runAdb($serial, ['shell', 'am', 'set-debug-app', '--persistent', 'com.android.chrome']),
+            $this->runAdb($serial, ['shell', 'am', 'set-debug-app', '--persistent', self::CHROME_PACKAGE]),
             'configure Chrome first-run behavior',
         );
         $path = tempnam(sys_get_temp_dir(), 'rtm-chrome-flags-');
@@ -176,6 +178,12 @@ final class Emulator
         } finally {
             unlink($path);
         }
+
+        // Android 13+ Chrome shows a notification promo over the page without this permission.
+        $this->assertSuccessful(
+            $this->runAdb($serial, ['shell', 'pm', 'grant', self::CHROME_PACKAGE, self::NOTIFICATION_PERMISSION]),
+            'grant Chrome notification permission so its notification prompt does not cover the page',
+        );
     }
 
     private function assertSuccessful(ProcessResult $result, string $action): void
