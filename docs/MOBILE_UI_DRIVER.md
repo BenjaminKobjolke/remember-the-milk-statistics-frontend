@@ -44,10 +44,11 @@ Europe/Berlin. Open and completed counts vary by hour to make the summary and ch
 
 The default Android Virtual Device is `Pixel_9_Isolated`; set `MOBILE_UI_DRIVER_AVD` to select a
 different installed AVD. The Android SDK is found through `ANDROID_HOME`, `ANDROID_SDK_ROOT`, or
-`%LOCALAPPDATA%\Android\Sdk`. The emulator starts read-only with snapshot saving, audio, and boot
-animation disabled. The driver chooses an unused even console port starting at 5580 and addresses
-ADB commands only to that emulator serial. The PHP server uses a temporary port and the emulator
-reaches it through Android's host bridge at `10.0.2.2`.
+`%LOCALAPPDATA%\Android\Sdk`. The emulator starts read-only and without a window, with snapshot
+saving, audio, boot animation, and the crash-report dialog disabled. All driver commands read the
+screen through ADB, so no emulator window is needed. The driver chooses an unused even console port
+starting at 5580 and addresses ADB commands only to that emulator serial. The PHP server uses a
+temporary port and the emulator reaches it through Android's host bridge at `10.0.2.2`.
 
 The driver's generated database and configuration live only under `tmp/mobile_ui_driver/`. The
 server uses `RTM_STATS_CONFIG_DIR` to load that separate configuration. Neither the user's
