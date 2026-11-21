@@ -48,6 +48,10 @@ final class Emulator
             '-no-snapshot-save',
             '-no-audio',
             '-no-boot-anim',
+            // Headless: a window surface error crashes the emulator and its hidden crash dialog blocks adb forever.
+            '-no-window',
+            '-crash-report-mode',
+            'disabled',
         ], $sdk);
 
         try {
