@@ -52,7 +52,8 @@ reaches it through Android's host bridge at `10.0.2.2`.
 The driver's generated database and configuration live only under `tmp/mobile_ui_driver/`. The
 server uses `RTM_STATS_CONFIG_DIR` to load that separate configuration. Neither the user's
 `config/` nor the producer's statistics database is modified. Chrome first-run flags are written
-inside the disposable emulator session.
+inside the disposable emulator session, and the driver grants Chrome its notification permission
+there so its notification popup does not cover the page.
 
 ## Limitations
 
